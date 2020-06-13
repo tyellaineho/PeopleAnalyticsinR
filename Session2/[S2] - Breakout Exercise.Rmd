@@ -1,0 +1,107 @@
+---
+title: "People Analytics [S2]"
+author: "Ellaine Ho"
+started: "2020-06-08"
+output:
+  html_document:
+    df_print: paged
+tl;dr: Demonstrating some basic R fluency.
+---
+
+## Breakout for Session 1 
+
+1/ Create a Vector with values that run from 2 to 10.
+```{r}
+vector1 <- c(2:10)
+vector1
+```
+
+2/ Create a Vector with values for the days in the week, starting from Monday and ending on Sunday.
+```{r}
+days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+days_of_the_week
+```
+
+3/ Repeat 2 but this time have it list from Wednesday to Tuesday.
+```{r}
+days_of_the_week[3:2]
+```
+
+4/ Create a List with your (i) name, (ii) your birth month, (iii) your birth date, and (iv) your expected TC graudation year. 
+```{r}
+myinfo <- list("name"= "Ellaine", "birth_month" = 2, "birth_date" = 24, "grad_yr" = 2020)
+myinfo
+```
+
+5/ Create a List with your (i) name and (ii) a Vector with all the degree-types (e.g., B.S., M.A., etc.) you expect by TC graduation.
+```{r}
+myinfo <- list("name" = "Ellaine", "degree" = "M.A.")
+myinfo
+```
+
+Run this code!
+
+```{r, results=FALSE}
+# first create a set of vectors, these are the variables and values I want in this data frame
+Emp_ID <- c("10101", "10032", "10224", "12005", "11010", "20200", "10042", "20104", "77023", "50034", 
+            "11111", "98475", "33644", "33254", "66974", "21457", "99651", "20104", "88594", "21546")
+Start_Date <- as.Date(c("2011-02-05", "2012-04-08", "2009-10-05", "2014-09-09", "2015-05-05", 
+                        "2010-01-05", "2005-05-10", "2014-11-25", "2010-04-10", "2010-10-08",
+                        "2012-05-05", "2010-04-10", "2011-10-30", "2014-09-04", "2014-12-05", 
+                        "2014-05-07", "2005-05-10", "2014-11-25", "2015-12-05", "2010-10-08"))
+Salary <- c(100200, 115000, 104000, 90000, 85000, 140000, 125500, 111000, 75000, 88000, 
+            140200, 131000, 14000, 78000, 99400, 125000, 114400, 98000, 145000, 108000)
+Annual_Bonus <- c(15000, 20000, 18000, 16500, 17800, 20000, 19000, 14000, 18000, 15000,
+                  15500, 16000, 16000, 13600, 14400, 10000, 16500, 12500, 13500, 16000)
+Retention_Bonus <- c(NA, NA, NA, 10000, NA, NA, NA, 10000, NA, NA,
+                     20000, NA, NA, NA, 10000, NA, NA, 10000, NA, NA)
+
+# this next line combines the different vectors and creates a data frame called "emp"
+# note how I'm careful to include the 'stringAsFactors = FALSE' command
+
+emp <- data.frame(Emp_ID, Start_Date, Salary, Annual_Bonus, Retention_Bonus, stringsAsFactors = FALSE)
+emp  # run the dataframe I just created and see if it has the information I expect it to have
+```
+
+6/ Display the Employee ID of the most tenured employee (i.e., who has been at this company the longest?).
+```{r}
+most_tenured <- min(emp$Start_Date)
+emp %>% select(Emp_ID) %>% filter(Start_Date == most_tenured)
+
+```
+
+7/ Do the same thing as #1, but use a different method (e.g., if you used numbers first, use column names, or vice-versa).
+```{r}
+# what does this mean?
+```
+
+8/ Display all the names of the columns in the dataframe.
+```{r}
+names(emp)
+```
+  
+9/ Display the Employee ID of the person with the highest base salary.
+```{r}
+emp %>% select(Emp_ID) %>% filter(Salary == max(Salary))
+```
+
+10/ Display the entire vector of retention bonuses.
+```{r}
+emp$Retention_Bonus
+```
+
+11/ Display just the unique values of the retention bonuses.
+```{r}
+unique(emp$Retention_Bonus)
+```
+
+12/ Display just the second row of the data frame.
+```{r}
+emp[2, ]
+```
+   
+13/ Display the count of the number of rows in the data frame.   
+```{r}
+ nrow(emp)
+```
+ 
